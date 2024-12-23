@@ -19,8 +19,8 @@ public class IronChallengeOldPhonePad {
     }
 
     public static void CheckSanity(string input) {  
-        if(input[input.Length - 1] != SendKey) {
-            throw new Exception("Invalid input: Last character should be send key");
+        if(input.Length == 0 || input[input.Length - 1] != SendKey) {
+            throw new Exception("Invalid input: Send key not found at the end of input");
         }
 
         char[] SpecialKeys = {BackspaceKey, PauseKey};

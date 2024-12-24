@@ -27,12 +27,15 @@ jobs:
 
     - name: Read the release ID from the provided file
       run: "echo Release ID: $(cat ./.version) && echo release_id=$(cat ./.version) >> $GITHUB_ENV"
+    
+    - name: Zip the publish folder
+      run: zip -r IronChallenge.zip ./publish/*
 
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: ./publish/*
+        files: IronChallenge.zip
         tag_name: ${{ env.release_id }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

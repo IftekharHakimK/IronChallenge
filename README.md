@@ -7,7 +7,7 @@
   Download from: https://dotnet.microsoft.com/en-us/download
 
 # How to use?
-Get the [release](https://github.com/IftekharHakimK/IronChallenge/releases/tag/1.0.0) first.
+Get the [release](https://github.com/IftekharHakimK/IronChallenge/releases/latest/IronChallenge.zip) first and unzip the files.
 
 ```
 $ dotnet IronChallenge.dll "8 88777444666*664#"

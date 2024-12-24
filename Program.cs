@@ -12,10 +12,8 @@ public class IronChallengeOldPhonePad {
 
     static char GetResultingCharacter(char key, int numberOfStroke) {
         int keyIndex = key - '0';
-        if(arrangements[keyIndex].Length < numberOfStroke) {
-            throw new Exception($"Invalid input: {key} occurs {numberOfStroke} times consecutively");
-        }
-        return arrangements[keyIndex][numberOfStroke - 1];
+        int characterCount = arrangements[keyIndex].Length;
+        return arrangements[keyIndex][(numberOfStroke - 1) % characterCount];
     }
 
     public static void CheckSanity(string input) {  

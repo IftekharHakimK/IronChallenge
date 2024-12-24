@@ -7,7 +7,8 @@
   Download from: https://dotnet.microsoft.com/en-us/download
 
 # How to use?
-Use the released file *IronChallenge.dll*
+Get the [release](https://github.com/IftekharHakimK/IronChallenge/releases/tag/1.0.0) first.
+
 ```
 $ dotnet IronChallenge.dll "8 88777444666*664#"
 TURING

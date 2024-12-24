@@ -23,7 +23,7 @@ jobs:
       run: dotnet test --no-build
 
     - name: Publish the project
-      run: dotnet publish --configuration Release --output ./publish
+      run: dotnet publish --configuration Release --self-contained --output ./publish
 
     - name: Read the release ID from the provided file
       run: "echo Release ID: $(cat ./.version) && echo release_id=$(cat ./.version) >> $GITHUB_ENV"
@@ -32,7 +32,7 @@ jobs:
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: ./publish/IronChallenge.dll
+        files: ./publish/
         tag_name: ${{ env.release_id }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

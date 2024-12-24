@@ -29,8 +29,7 @@ jobs:
       run: "echo Release ID: $(cat ./.version) && echo release_id=$(cat ./.version) >> $GITHUB_ENV"
     
     - name: Zip the publish folder
-      run: zip -r IronChallenge.zip ./publish/*
-
+      run: cd publish && zip -r ../IronChallenge.zip .
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1

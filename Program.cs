@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Collections.Generic;
 
 public class IronChallengeOldPhonePad {
     const char BackspaceKey = '*';
@@ -13,15 +12,20 @@ public class IronChallengeOldPhonePad {
     static char GetResultingCharacter(char key, int numberOfStroke) {
         int keyIndex = key - '0';
         int characterCount = arrangements[keyIndex].Length;
-        return arrangements[keyIndex][(numberOfStroke - 1) % characterCount];
+
+        /* pressing a button multiple times will cycle through the letters*/
+        return arrangements[keyIndex][(numberOfStroke - 1) % characterCount]; 
     }
 
     public static void CheckSanity(string input) {  
+        /* Check if last character is send key */
         if(input.Length == 0 || input[input.Length - 1] != SendKey) {
             throw new Exception("Invalid input: Send key not found at the end of input");
         }
 
+        /* Check if all characters till the send key are either digit or backspace key or pause key */
         char[] SpecialKeys = {BackspaceKey, PauseKey};
+
         for(int i = 0; i < input.Length - 1; i++) {
             char c = input[i];
             if(!char.IsDigit(c) && Array.IndexOf(SpecialKeys, c) == -1) {
@@ -34,11 +38,13 @@ public class IronChallengeOldPhonePad {
     public static string OldPhonePad(string input) {
         CheckSanity(input);
         StringBuilder result = new StringBuilder();
-        Queue<char> inputQueue = new Queue<char>(input);
+        int l = 0; // l is the number of keys processed from front
+        int n = input.Length;
 
-        while(inputQueue.Count > 0) {
-            char key = inputQueue.Dequeue();
- 
+        while(l < n) {
+            char key = input[l++];
+
+            /* Handle special keys at first*/
             if(key == SendKey) {
                 break;
             }
@@ -47,18 +53,20 @@ public class IronChallengeOldPhonePad {
             }
             else if(key == BackspaceKey) {
                 if(result.Length > 0) {
-                    result.Length --;
+                    result.Length--;  // Keeping it O(1)
                 }
                 continue;
             }
 
+            /* Count the number of times the key is pressed consecutively*/
             int numberOfStroke = 1;
-            while(inputQueue.Count > 0 && inputQueue.Peek() == key) {
+            while(l < n && input[l] == key) {
                 numberOfStroke++;
-                inputQueue.Dequeue();
+                l++;
             }
             result.Append(GetResultingCharacter(key, numberOfStroke));
         }
+
         return result.ToString();
     }
 
